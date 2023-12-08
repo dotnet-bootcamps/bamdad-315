@@ -4,7 +4,36 @@
 }
 
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>@Model.Count()</p>
+<div class="">
+    <div class="d-flex justify-content-between">
+        <span class="bold" style="font-size: 30px">لیست محصولات</span>
+        <a class="btn btn-outline-success" href="">ثبت محصول جدید</a>
+    </div>
+    <hr />
+    <table class="w-100 table table-striped table-hover">
+        <tr>
+            <td>شناسه</td>
+            <td>دسته بندی</td>
+            <td>عنوان</td>
+            <td>توضیحات</td>
+            <td>قیمت</td>
+            <td>عملیات</td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.ProductCategoryTitle</td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Price</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-info" href="">مشاهده جزئیات</a>
+                    <a class="btn btn-sm btn-outline-warning" href="">ویرایش</a>
+                    <a class="btn btn-sm btn-outline-danger" href="">حذف</a>
+                </td>
+            </tr>
+        }
+
+    </table>
 </div>

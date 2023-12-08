@@ -20,7 +20,8 @@ public class ProductQueryRepository : IProductQueryRepository
             Name = p.Name,
             Description = p.Description,
             Price = p.Price,
-            ProductCategoryId = p.ProductCategoryId
+            ProductCategoryId = p.ProductCategoryId,
+            ProductCategoryTitle = p.ProductCategory.Title
         }).FirstOrDefaultAsync(cancellationToken);
     }
 
@@ -32,7 +33,8 @@ public class ProductQueryRepository : IProductQueryRepository
             Name = p.Name,
             Description = p.Description,
             Price = p.Price,
-            ProductCategoryId = p.ProductCategoryId
+            ProductCategoryId = p.ProductCategoryId,
+            ProductCategoryTitle = p.ProductCategory.Title
         }).ToListAsync(cancellationToken);
     }
 

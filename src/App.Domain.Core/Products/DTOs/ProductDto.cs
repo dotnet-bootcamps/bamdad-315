@@ -5,5 +5,6 @@ public class ProductDto
     public string Name { get; set; }
     public long Price { get; set; }
     public int ProductCategoryId { get; set; }
+    public string ProductCategoryTitle { get; set; }
     public string? Description { get; set; }
 }
