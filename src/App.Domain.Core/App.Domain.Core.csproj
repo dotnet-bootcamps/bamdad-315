@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Comment\AppServices\" />
+    <Folder Include="Comment\Data\DapperRepositories\" />
+    <Folder Include="Comment\Data\Repositories\" />
+    <Folder Include="Comment\DTOs\" />
+    <Folder Include="Comment\Entities\" />
+    <Folder Include="Comment\Enums\" />
+    <Folder Include="Comment\Services\" />
+    <Folder Include="Invoice\AppServices\" />
+    <Folder Include="Invoice\Data\DapperRepositories\" />
+    <Folder Include="Invoice\Data\Repositories\" />
+    <Folder Include="Invoice\DTOs\" />
+    <Folder Include="Invoice\Entities\" />
+    <Folder Include="Invoice\Enums\" />
+    <Folder Include="Invoice\Services\" />
+    <Folder Include="Products\Data\DapperRepositories\" />
+    <Folder Include="Products\Enums\" />
+  </ItemGroup>
+
+</Project>
