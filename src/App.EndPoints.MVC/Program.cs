@@ -5,14 +5,27 @@ using App.Domain.Core.Products.Services;
 using App.Domain.Services.Products;
 using App.Infra.Data.Db.SqlServer.Ef.DbCtx;
 using App.Infra.Data.Repos.Ef.Products;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;Database=BamdadShopDb;").LogTo(Console.WriteLine));
+builder.Services.AddIdentity<User, Role>(option =>
+{
+    option.Password.RequireUppercase = false;
+    option.Password.RequireLowercase = false;
+    option.Password.RequireNonAlphanumeric = false;
+    option.Password.RequiredLength = 6;
+    option.Password.RequiredUniqueChars = 2;
+}
+).AddEntityFrameworkStores<AppDbContext>();
+
+
 builder.Services.AddScoped<IProductAppService,ProductAppService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductQueryRepository, ProductQueryRepository>();
@@ -32,7 +45,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

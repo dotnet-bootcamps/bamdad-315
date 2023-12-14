@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Infra.Data.Db.SqlServer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.EndPoints.MVC", "src\App.EndPoints.MVC\App.EndPoints.MVC.csproj", "{DBFAC65A-FE3E-4BC0-B069-7BF5BEAC8DC6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.EndPoint.Api", "App.EndPoint.Api\App.EndPoint.Api.csproj", "{9FFAC452-FCD4-4D09-AD5C-29D9D0C3832A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{DBFAC65A-FE3E-4BC0-B069-7BF5BEAC8DC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBFAC65A-FE3E-4BC0-B069-7BF5BEAC8DC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBFAC65A-FE3E-4BC0-B069-7BF5BEAC8DC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FFAC452-FCD4-4D09-AD5C-29D9D0C3832A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FFAC452-FCD4-4D09-AD5C-29D9D0C3832A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FFAC452-FCD4-4D09-AD5C-29D9D0C3832A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FFAC452-FCD4-4D09-AD5C-29D9D0C3832A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{018D055A-F9D0-433B-99F6-960314613109} = {F0C1260B-CA37-42D2-9212-4440E09B6514}
 		{0E0E1CD0-CB90-4B01-A11D-97636B174324} = {09D34436-6F54-4198-8BE4-D21585E32F49}
 		{DBFAC65A-FE3E-4BC0-B069-7BF5BEAC8DC6} = {5344EAE6-D43F-4A36-BA60-DB2708DE7604}
+		{9FFAC452-FCD4-4D09-AD5C-29D9D0C3832A} = {5344EAE6-D43F-4A36-BA60-DB2708DE7604}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B430F94-88B3-45B1-915A-05A64D6ECD6D}

@@ -1,10 +1,14 @@
 using App.Domain.Core.Products.AppServices;
+using App.Domain.Core.Products.DTOs;
 using App.EndPoints.MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Threading;
 
 namespace App.EndPoints.MVC.Controllers;
+
+[Authorize]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -16,6 +20,7 @@ public class HomeController : Controller
         _productAppService = productAppService;
     }
 
+    [AllowAnonymous]
     public async Task<IActionResult> Index(int? id, CancellationToken cancellationToken)
     {
         if (id != null)
@@ -27,18 +32,28 @@ public class HomeController : Controller
         }
         else
         {
-            var products = await _productAppService.GetProducts(cancellationToken);
-            return View(products);
+            try
+            {
+                var products = await _productAppService.GetProducts(cancellationToken);
+                return View(products);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
 
     }
-
+    [Authorize(Roles = "Admin")]
     public IActionResult Privacy()
     {
         return View();
     }
 
+    [AllowAnonymous]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
