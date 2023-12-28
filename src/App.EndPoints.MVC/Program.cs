@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using ExchangeProxy;
+using ExchangeProxy.Models;
+using Microsoft.Extensions.Options;
+using Microsoft.CodeAnalysis.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +34,11 @@ builder.Services.AddScoped<IProductAppService,ProductAppService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductQueryRepository, ProductQueryRepository>();
 builder.Services.AddScoped<IProductCommandRepository, ProductCommandRepository>();
+builder.Services.Add_ExchangeProxy(new ExchangeOption()
+{
+    ApiKey = "ABCabc@123"
+});
+
 
 var app = builder.Build();
 
