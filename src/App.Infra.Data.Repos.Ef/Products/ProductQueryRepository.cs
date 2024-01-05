@@ -25,6 +25,15 @@ public class ProductQueryRepository : IProductQueryRepository
         }).FirstOrDefaultAsync(cancellationToken);
     }
 
+    public async Task<List<ProductCategoryDto>> GetCategories(CancellationToken cancellationToken)
+    {
+        return await _context.ProductCategories.AsNoTracking().Select(p=>new ProductCategoryDto 
+        { 
+            Id = p.Id,
+            Title=p.Title,
+        }).ToListAsync(cancellationToken);
+    }
+
     public async Task<List<ProductDto>?> GetProducts(CancellationToken cancellationToken)
     {
         return await _context.Products.Where(p => p.IsActive == true).AsNoTracking().Select(p => new ProductDto
@@ -48,5 +57,15 @@ public class ProductQueryRepository : IProductQueryRepository
             Price = p.Price,
             ProductCategoryId = p.ProductCategoryId
         }).ToListAsync(cancellationToken);
+    }
+
+    public async Task<List<AttributeDto>> GetCategoryAttributes(int CategoryId, CancellationToken cancellationToken)
+    {
+        var productCategory = await _context.ProductCategories.AsNoTracking().Include(p => p.Attributes).Where(p => p.Id == CategoryId).SingleAsync(cancellationToken);
+        return productCategory.Attributes.Select(p => new AttributeDto
+        {
+            Id= p.Id,
+            Title=p.Title,
+        }).ToList();
     }
 }

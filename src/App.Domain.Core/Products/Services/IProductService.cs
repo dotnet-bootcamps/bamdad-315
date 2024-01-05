@@ -9,4 +9,6 @@ public interface IProductService
     public Task AddProduct(ProductDto product, CancellationToken cancellationToken);
     public Task UpdateProduct(ProductDto product, CancellationToken cancellationToken);
     public Task DeleteProduct(int productId, CancellationToken cancellationToken);
+    Task<List<ProductCategoryDto>> GetCategories(CancellationToken cancellationToken);
+    Task<List<AttributeDto>> GetCategoryAttributes(int CategoryId, CancellationToken cancellationToken);
 }

@@ -1,0 +1,87 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Add";
+    List<AttributeViewModel> Attributes = (List<AttributeViewModel>)ViewBag.Attributes;
+}
+
+<!-- Breadcrumb -->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item">
+        <a href="#">Admin</a>
+    </li>
+    <li class="breadcrumb-item active">Dashboard</li>
+    <!-- Breadcrumb Menu-->
+    <li class="breadcrumb-menu">
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <a class="btn btn-secondary" href="#"><i class="icon-speech"></i></a>
+            <a class="btn btn-secondary" href="./"><i class="icon-graph"></i> &nbsp;Dashboard</a>
+            <a class="btn btn-secondary" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>
+        </div>
+    </li>
+</ol>
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-align-justify"></i> افزودن محصول جدید
+                    </div>
+                    <div class="card-block">
+                        <form asp-action="Add" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input asp-for="Name" type="text" class="form-control" placeholder="نام محصول">
+                                </div>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input asp-for="Price" type="text" class="form-control" placeholder="قیمت">
+                                </div>
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                           
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input asp-for="Description" type="text" class="form-control" placeholder="توضیحات">
+                                </div>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <input asp-for="ProductCategoryId" type="hidden" value="@ViewBag.ProductCategoryId" />
+                          
+                             
+                            @foreach (var item in Attributes)
+                            {
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input name="Attr[@item.Id]" type="text" class="form-control" placeholder="@item.Name">
+                                    </div>
+                                    <span asp-validation-for="@item.Value" class="text-danger"></span>
+                                </div>
+                            }
+                            <div class="form-group form-actions">
+                                <button type="submit" class="btn btn-primary">ذخیره</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--/col-->
+        </div>
+        <!--/row-->
+    </div>
+</div>
+<!-- /.conainer-fluid -->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

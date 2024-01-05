@@ -13,6 +13,16 @@ public class ProductAppService : IProductAppService
         _productService = productService;
     }
 
+    public async Task<List<ProductCategoryDto>> GetCategories(CancellationToken cancellationToken)
+    {
+        return await _productService.GetCategories(cancellationToken);
+    }
+
+    public async Task<List<AttributeDto>> GetCategoryAttributes(int CategoryId, CancellationToken cancellationToken)
+    {
+        return await _productService.GetCategoryAttributes(CategoryId, cancellationToken);
+    }
+
     public Task<ProductDto> GetProduct(int productId, CancellationToken cancellationToken)
     {
         return _productService.GetProduct(productId, cancellationToken);

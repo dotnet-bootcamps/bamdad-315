@@ -9,7 +9,8 @@ public class Product
     public bool IsActive { get; set; }
     public bool IsDelete { get; set; }
     public DateTime? DeleteAt { get; set; }
-    public int? DeleteBy { get; set; }
+    public int? AspNetUserId { get; set; }
 
     public ProductCategory ProductCategory { get; set; }
+    public List<ProductAttribute> ProductAttributes { get; set; }
 }

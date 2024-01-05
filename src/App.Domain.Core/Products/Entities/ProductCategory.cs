@@ -7,4 +7,5 @@ public class ProductCategory
     public List<Product> Products { get; set; }
     public ProductCategory Parent { get; set; }
     public List<ProductCategory> Childs { get; set; }
+    public List<Attribute> Attributes { get; set; }
 }

@@ -27,6 +27,16 @@ public class ProductService : IProductService
             throw new Exception($"ProductId = {productId} dose not exist.");
     }
 
+    public async Task<List<ProductCategoryDto>> GetCategories(CancellationToken cancellationToken)
+    {
+        return await _productQueryRepository.GetCategories(cancellationToken);
+    }
+
+    public async Task<List<AttributeDto>> GetCategoryAttributes(int CategoryId, CancellationToken cancellationToken)
+    {
+        return await _productQueryRepository.GetCategoryAttributes(CategoryId, cancellationToken);
+    }
+
     public async Task<ProductDto> GetProduct(int productId, CancellationToken cancellationToken)
     {
         var product = await _productQueryRepository.GetProduct(productId, cancellationToken);

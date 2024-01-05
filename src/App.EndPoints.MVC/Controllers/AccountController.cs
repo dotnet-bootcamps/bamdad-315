@@ -43,6 +43,12 @@ public class AccountController : Controller
             if (isPasswordValid)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
+
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Any(p => p == "Admin"))
+                {
+                    return Redirect(model.ReturnUrl ?? "/Admin");
+                }
                 return Redirect(model.ReturnUrl ?? "/");
             }
 

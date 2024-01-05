@@ -7,4 +7,5 @@ public class ProductDto
     public int ProductCategoryId { get; set; }
     public string ProductCategoryTitle { get; set; }
     public string? Description { get; set; }
+    public List<ProductAttributeDto> Attributes { get; set; }
 }

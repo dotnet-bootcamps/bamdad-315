@@ -27,6 +27,9 @@ public class HomeController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> Index(int? id, CancellationToken cancellationToken)
     {
+        ViewBag.UserName = User.Identity.Name;
+
+        var isLogin = User?.Identity?.IsAuthenticated;
         if (id != null)
         {
             var products = await _productAppService.GetProducts(id??0, cancellationToken);
