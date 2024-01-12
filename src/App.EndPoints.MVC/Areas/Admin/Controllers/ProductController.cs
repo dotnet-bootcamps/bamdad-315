@@ -4,6 +4,7 @@ using App.EndPoints.MVC.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace App.EndPoints.MVC.Areas.Admin.Controllers;
 
@@ -13,13 +14,20 @@ namespace App.EndPoints.MVC.Areas.Admin.Controllers;
 public class ProductController : Controller
 {
     private readonly IProductAppService _productAppService;
+    private readonly IMemoryCache _memoryCache;
 
-    public ProductController(IProductAppService productAppService)
+    public ProductController(IProductAppService productAppService,
+        IMemoryCache memoryCache)
     {
         _productAppService = productAppService;
+        _memoryCache = memoryCache;
     }
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
+        //if (_memoryCache[])
+        //{
+            
+        //}
         var products = await _productAppService.GetProducts(cancellationToken);
         return View(products);
     }
