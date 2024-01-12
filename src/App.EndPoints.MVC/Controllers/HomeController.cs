@@ -7,20 +7,23 @@ using System.Diagnostics;
 using System.Threading;
 using Newtonsoft.Json;
 using System.Net.Http;
+using Microsoft.Extensions.Caching.Memory;
 //using ExchangeProxy;
 namespace App.EndPoints.MVC.Controllers;
 
 [Authorize]
 public class HomeController : Controller
 {
+    private IMemoryCache _memoryCache;
     private readonly ILogger<HomeController> _logger;
     private readonly IProductAppService _productAppService;
     //private readonly IExchageProxy _exchageProxy;
 
-    public HomeController(ILogger<HomeController> logger , IProductAppService productAppService 
+    public HomeController(ILogger<HomeController> logger , IProductAppService productAppService , IMemoryCache memoryCache
         //,IExchageProxy exchageProxy
         )
     {
+        _memoryCache = memoryCache;
         _logger = logger;
         _productAppService = productAppService;
         //_exchageProxy = exchageProxy;
@@ -43,8 +46,18 @@ public class HomeController : Controller
         {
             try
             {
-                var products = await _productAppService.GetProducts(cancellationToken);
-                return View(products);
+                var CacheKey = "ChachedProduct";
+                if (!_memoryCache.TryGetValue(CacheKey, out List<ProductDto> cacheValue))
+                {
+
+                    cacheValue = await _productAppService.GetProducts(cancellationToken); ;
+
+                    var cacheEntryOptions = new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(3));
+
+                    _memoryCache.Set(CacheKey, cacheValue, cacheEntryOptions);
+                }
+                return View(cacheValue);
             }
             catch (Exception ex)
             {
