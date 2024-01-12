@@ -5,14 +5,9 @@ using App.Domain.Core.Products.Services;
 using App.Domain.Services.Products;
 using App.Infra.Data.Db.SqlServer.Ef.DbCtx;
 using App.Infra.Data.Repos.Ef.Products;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
-using ExchangeProxy;
-using ExchangeProxy.Models;
-using Microsoft.Extensions.Options;
-using Microsoft.CodeAnalysis.Options;
+//using ExchangeProxy;
+//using ExchangeProxy.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,14 +25,14 @@ builder.Services.AddIdentity<User, Role>(option =>
 ).AddEntityFrameworkStores<AppDbContext>();
 
 
-builder.Services.AddScoped<IProductAppService,ProductAppService>();
+builder.Services.AddScoped<IProductAppService, ProductAppService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductQueryRepository, ProductQueryRepository>();
 builder.Services.AddScoped<IProductCommandRepository, ProductCommandRepository>();
-builder.Services.Add_ExchangeProxy(new ExchangeOption()
-{
-    ApiKey = "ABCabc@123"
-});
+//builder.Services.Add_ExchangeProxy(new ExchangeOption()
+//{
+//    ApiKey = "ABCabc@123"
+//});
 
 
 var app = builder.Build();
