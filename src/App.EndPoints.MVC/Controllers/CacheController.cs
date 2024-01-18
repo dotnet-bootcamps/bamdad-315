@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace App.EndPoints.MVC.Controllers
@@ -8,10 +9,13 @@ namespace App.EndPoints.MVC.Controllers
     public class CacheController : Controller
     {
         private readonly IMemoryCache _memoryCache;
+        private readonly IDistributedCache _distributedCache;
 
-        public CacheController(IMemoryCache memoryCache)
+        public CacheController(IMemoryCache memoryCache,
+            IDistributedCache distributedCache)
         {
             _memoryCache = memoryCache;
+            _distributedCache = distributedCache;
         }
 
 
@@ -21,8 +25,7 @@ namespace App.EndPoints.MVC.Controllers
             CacheSampleModel model = new CacheSampleModel();
 
             model.CurrentDateTime = DateTime.Now;
-
-
+            
             if (!_memoryCache.TryGetValue(CacheKey, out DateTime cacheValue))
             {
                 cacheValue = model.CurrentDateTime;

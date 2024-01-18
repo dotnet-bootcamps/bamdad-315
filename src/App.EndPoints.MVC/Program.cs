@@ -13,6 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+builder.Services.AddDistributedMemoryCache();
+
 builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;Database=BamdadShopDb;").LogTo(Console.WriteLine));
 builder.Services.AddIdentity<User, Role>(option =>
 {
