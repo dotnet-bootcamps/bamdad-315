@@ -31,9 +31,7 @@
                     <td>@item.Description</td>
                     <td>@item.Price</td>
                     <td>
-                        <a class="btn btn-sm btn-outline-info" href="">مشاهده جزئیات</a>
-                        <a class="btn btn-sm btn-outline-warning" href="">ویرایش</a>
-                        <a class="btn btn-sm btn-outline-danger" href="">حذف</a>
+                        <partial name="_ActionButtonsPartial" model="item"/>
                     </td>
                 </tr>
             }
@@ -51,6 +49,5 @@
                     
 @section Scripts
 {
-    
-    <h1>Hi</h1>
+    <partial name="_ValidationScriptsPartial" />
 }
