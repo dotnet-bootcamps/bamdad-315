@@ -3,6 +3,7 @@ using App.Domain.Core.Products.AppServices;
 using App.Domain.Core.Products.Data.Repositories;
 using App.Domain.Core.Products.Services;
 using App.Domain.Services.Products;
+using App.EndPoints.MVC.Models;
 using App.Infra.Data.Db.SqlServer.Ef.DbCtx;
 using App.Infra.Data.Repos.Ef.Products;
 using Microsoft.EntityFrameworkCore;
@@ -11,8 +12,32 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+// configuration
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    //.AddJsonFile($"appsettings-logging.{builder.Environment.EnvironmentName}.json")
+    //.AddIniFile()
+    //.AddXmlFile()
+    //.AddCommandLine()
+    //.AddEnvironmentVariables()
+    //.AddUserSecrets("f55ef90e-093a-42f0-85ab-d33b28d52cbd")
+    ;
+
+var appName = builder.Configuration["AppName"];
+var loggingDefaultLevel = builder.Configuration["Logging:LogLevel:Default"];
+
+
+//var appSettings = builder.Configuration.Get<AppSettings>();
+
+builder.Services.AddSingleton(builder.Configuration.Get<AppSettings>());
+
+
+var appDbConnectionString = builder.Configuration.GetConnectionString("AppDb");
+
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddControllersWithViews()
+    .AddRazorRuntimeCompilation();
 
 builder.Services.AddDistributedMemoryCache();
 
@@ -47,6 +72,11 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+//if(app.Environment.IsEnvironment("Mahmoud-Pc"))
+//{
+
+//}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

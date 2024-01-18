@@ -7,24 +7,33 @@ using System.Diagnostics;
 using System.Threading;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Security.Claims;
 using Microsoft.Extensions.Caching.Memory;
 //using ExchangeProxy;
 namespace App.EndPoints.MVC.Controllers;
 
 [Authorize]
-public class HomeController : Controller
+public class HomeController : eShopBaseController
 {
     private IMemoryCache _memoryCache;
     private readonly ILogger<HomeController> _logger;
+    private readonly AppSettings _appSettings;
+    private readonly IConfiguration _configuration;
+
     private readonly IProductAppService _productAppService;
     //private readonly IExchageProxy _exchageProxy;
 
-    public HomeController(ILogger<HomeController> logger , IProductAppService productAppService , IMemoryCache memoryCache
+    public HomeController(ILogger<HomeController> logger , 
+        AppSettings appSettings ,
+        IConfiguration configuration,
+        IProductAppService productAppService , IMemoryCache memoryCache
         //,IExchageProxy exchageProxy
         )
     {
         _memoryCache = memoryCache;
         _logger = logger;
+        _appSettings = appSettings;
+        _configuration = configuration;
         _productAppService = productAppService;
         //_exchageProxy = exchageProxy;
     }
@@ -32,6 +41,23 @@ public class HomeController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> Index(int? id, CancellationToken cancellationToken)
     {
+
+        var appName = _configuration["AppName"];
+        var loggingDefaultLevel = _configuration["Logging:LogLevel:Default"];
+
+        //User.Identity.GetUserId();
+
+
+        if (User.Identity.IsAuthenticated)
+        {
+
+        }
+
+        var userID = GetUserId();
+
+
+
+
         ViewBag.UserName = User.Identity.Name;
 
         var isLogin = User?.Identity?.IsAuthenticated;
@@ -64,11 +90,19 @@ public class HomeController : Controller
 
                 throw ex;
             }
-            
+
+            //return Created();
+            //return Ok();
+            //return Unauthorized();
+            //return Forbid();
+            //throw new Exception();
+
         }
 
 
     }
+
+
     [Authorize(Roles = "Admin")]
     public IActionResult Privacy()
     {

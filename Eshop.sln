@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.EndPoint.Api", "App.End
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{FD42E041-0DBA-4392-86B4-EAB2E170CB02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.EndPoints.RazorPageUI", "src\App.EndPoints.RazorPageUI\App.EndPoints.RazorPageUI.csproj", "{C13A9DEB-AE7B-4981-AF83-93070D10A311}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{9FFAC452-FCD4-4D09-AD5C-29D9D0C3832A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FFAC452-FCD4-4D09-AD5C-29D9D0C3832A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FFAC452-FCD4-4D09-AD5C-29D9D0C3832A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C13A9DEB-AE7B-4981-AF83-93070D10A311}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C13A9DEB-AE7B-4981-AF83-93070D10A311}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C13A9DEB-AE7B-4981-AF83-93070D10A311}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C13A9DEB-AE7B-4981-AF83-93070D10A311}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +104,7 @@ Global
 		{DBFAC65A-FE3E-4BC0-B069-7BF5BEAC8DC6} = {5344EAE6-D43F-4A36-BA60-DB2708DE7604}
 		{9FFAC452-FCD4-4D09-AD5C-29D9D0C3832A} = {5344EAE6-D43F-4A36-BA60-DB2708DE7604}
 		{FD42E041-0DBA-4392-86B4-EAB2E170CB02} = {29E8253C-EEC5-40BB-94C5-7B71164973D2}
+		{C13A9DEB-AE7B-4981-AF83-93070D10A311} = {5344EAE6-D43F-4A36-BA60-DB2708DE7604}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B430F94-88B3-45B1-915A-05A64D6ECD6D}
