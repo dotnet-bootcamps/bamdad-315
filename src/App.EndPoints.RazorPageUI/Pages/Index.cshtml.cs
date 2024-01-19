@@ -19,7 +19,7 @@ namespace App.EndPoints.RazorPageUI.Pages
 
         public void OnGet()
         {
-            return Forbid();
+            //return Forbid();
         }
 
         public void OnPost()

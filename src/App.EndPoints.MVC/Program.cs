@@ -41,7 +41,7 @@ builder.Services.AddControllersWithViews()
 
 builder.Services.AddDistributedMemoryCache();
 
-builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;Database=BamdadShopDb;").LogTo(Console.WriteLine));
+builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;Database=BamdadShopDb2;").LogTo(Console.WriteLine));
 builder.Services.AddIdentity<User, Role>(option =>
 {
     option.Password.RequireUppercase = false;

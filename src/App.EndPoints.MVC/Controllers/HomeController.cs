@@ -1,4 +1,4 @@
-using App.Domain.Core.Products.AppServices;
+﻿using App.Domain.Core.Products.AppServices;
 using App.Domain.Core.Products.DTOs;
 using App.EndPoints.MVC.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Security.Claims;
 using Microsoft.Extensions.Caching.Memory;
+using App.Infra.Data.Db.SqlServer.Ef.DbCtx;
+using Microsoft.AspNetCore.Identity;
+using System;
 //using ExchangeProxy;
 namespace App.EndPoints.MVC.Controllers;
 
@@ -16,6 +19,9 @@ namespace App.EndPoints.MVC.Controllers;
 public class HomeController : eShopBaseController
 {
     private IMemoryCache _memoryCache;
+    private readonly UserManager<User> _userManager;
+    private readonly RoleManager<Role> _roleManager;
+    private readonly IWebHostEnvironment _environment;
     private readonly ILogger<HomeController> _logger;
     private readonly AppSettings _appSettings;
     private readonly IConfiguration _configuration;
@@ -26,17 +32,67 @@ public class HomeController : eShopBaseController
     public HomeController(ILogger<HomeController> logger , 
         AppSettings appSettings ,
         IConfiguration configuration,
-        IProductAppService productAppService , IMemoryCache memoryCache
+        IProductAppService productAppService , IMemoryCache memoryCache,
+        UserManager<User> userManager
+        , RoleManager<Role> roleManager
+            ,IWebHostEnvironment environment
         //,IExchageProxy exchageProxy
         )
     {
         _memoryCache = memoryCache;
+        _userManager = userManager;
+        _roleManager = roleManager;
+        _environment = environment;
         _logger = logger;
         _appSettings = appSettings;
         _configuration = configuration;
         _productAppService = productAppService;
         //_exchageProxy = exchageProxy;
     }
+
+
+    public IActionResult ModelBinding([FromQuery]int id)
+    {
+        return Ok();
+    }
+
+    [AllowAnonymous]
+    public async Task SeedData()
+    {
+
+        if (_environment.IsDevelopment())
+        {
+            await _roleManager.CreateAsync(new Role
+            {
+                Name = "Admin",
+                NameFa = "ادمین",
+            });
+
+            await _roleManager.CreateAsync(new Role
+            {
+                Name = "User",
+                NameFa = "کاربر",
+            });
+
+            var adminUser = new User
+            {
+                UserName = "admin",
+                FirstName = "admin",
+                LastName = "bamdad",
+                Email = "admin@bamdad.ir"
+            };
+
+            var result = await _userManager.CreateAsync(adminUser, "1234567");
+
+            if (result.Succeeded)
+            {
+                var role = await _roleManager.FindByNameAsync("Admin");
+                var result2 = await _userManager.AddToRoleAsync(adminUser, role.Name);
+            }
+        }
+
+    }
+
 
     [AllowAnonymous]
     public async Task<IActionResult> Index(int? id, CancellationToken cancellationToken)
@@ -102,12 +158,36 @@ public class HomeController : eShopBaseController
 
     }
 
+    public async Task<IActionResult> AddProduct()
+    {
+        return View();
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> AddProduct(ProductDto model)
+    {
+        if (ModelState.IsValid)
+        {
+
+            // اضافه شد توی دیتابیس
+            return RedirectToAction("Index");
+        }
+
+        return View(model);
+    }
+
+
+
 
     [Authorize(Roles = "Admin")]
     public IActionResult Privacy()
     {
         return View();
     }
+
+
+
 
     [AllowAnonymous]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
